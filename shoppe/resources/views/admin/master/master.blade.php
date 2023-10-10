@@ -12,12 +12,11 @@
 
     <link rel="icon" type="image/png" sizes="16x16" href="{{asset('admin/assets/images/favicon.png')}}">
 
-    <title>Nice admin Template - The Ultimate Multipurpose admin template</title>
+    <title>Shoppe admin</title>
 
     <!-- Custom CSS -->
     
-    <link href="{{asset('admin/libs/chartist/dist/chartist.min.css')}}" rel="stylesheet">
-
+    <link href="{{asset('admin/assets/libs/chartist/dist/chartist.min.css')}}" rel="stylesheet">
 
     <link href="{{asset('admin/dist/css/style.min.css')}}" rel="stylesheet">
 
@@ -27,11 +26,11 @@
 <body>
     <div id="main-wrapper" data-navbarbg="skin6" data-theme="light" data-layout="vertical" data-sidebartype="full" data-boxed-layout="full">
 
-        @include('master.header')
-        @include('master.left-sidebar')
+        @include('admin.master.header')
+        @include('admin.master.left-sidebar')
         <div class="page-wrapper">
             @yield('content')
-            @include('master.footer')
+            @include('admin.master.footer')
 
         </div>
 
@@ -59,6 +58,8 @@
     <!--This page JavaScript -->
     <!--chartis chart-->
     <script src="{{ asset('admin/assets/libs/chartist/dist/chartist.min.js')}}"></script>
+    <!-- <script src="{{ asset('admin/')}}"></script> -->
+
     <script src="{{ asset('admin/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js')}}"></script>
     
     <script src="{{ asset('admin/dist/js/pages/dashboards/dashboard1.js')}}"></script>
