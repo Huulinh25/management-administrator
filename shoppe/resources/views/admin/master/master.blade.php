@@ -57,10 +57,11 @@
     <script src="{{ asset('admin/dist/js/custom.min.js')}}"></script>
     <!--This page JavaScript -->
     <!--chartis chart-->
-    <script src="{{ asset('admin/assets/libs/chartist/dist/chartist.min.js')}}"></script>
+    <script src="{{asset('admin/assets/libs/chartist/dist/chartist.min.js')}}"></script>
+
     <!-- <script src="{{ asset('admin/')}}"></script> -->
 
-    <script src="{{ asset('admin/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js')}}"></script>
+    <script src="{{asset('admin/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js')}}"></script>
     
     <script src="{{ asset('admin/dist/js/pages/dashboards/dashboard1.js')}}"></script>
     <!-- <script src="/shoppe/public/admin/dist/js/pages/dashboards/dashboard1.js"></script> -->

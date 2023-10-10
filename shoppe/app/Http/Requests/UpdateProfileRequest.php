@@ -23,8 +23,8 @@ class UpdateProfileRequest extends FormRequest
     {
         return [
             'name' => 'required',
-            'email' => 'required|email',
-            'password' => 'nullable',
+            'email' => 'email',
+            'password' => 'required|nullable',
             'image'=>'image|mimes:jpeg,png,jpg,gif|max:2048',
         ];
     }

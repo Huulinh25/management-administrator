@@ -28,8 +28,6 @@ class HomeController extends Controller
      */
     public function update(UpdateProfileRequest $request)
     {
-        echo 111;
-        exit;
         $userId = Auth::id();
         $user = User::findOrFail($userId);
 

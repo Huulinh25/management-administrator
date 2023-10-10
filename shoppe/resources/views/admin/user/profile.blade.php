@@ -89,9 +89,9 @@
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-12">Password  (chưa làm)</label>
+                            <label class="col-md-12">Password  (chưa làm mã hóa về lại db)</label>
                             <div class="col-md-12">
-                                <input type="password" value="password" name="password" class="form-control form-control-line">
+                                <input type="password" value="{{ Auth::user()->password  }}" name="password" class="form-control form-control-line">
                             </div>
                         </div>
                         <div class="form-group">
