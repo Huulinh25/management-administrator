@@ -15,6 +15,7 @@
                     @endif
 
                     {{ __('Welcome!') }}
+                    <a href="admin/dashboard">Click here to Homepage</a>
                 </div>
             </div>
         </div>

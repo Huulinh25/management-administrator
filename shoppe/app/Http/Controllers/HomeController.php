@@ -3,8 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\UpdateProfileRequest;
-use Illuminate\Foundation\Auth\User;
-use Illuminate\Http\Request;
+use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 
 class HomeController extends Controller
@@ -26,35 +25,10 @@ class HomeController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
-    public function update(UpdateProfileRequest $request)
-    {
-        $userId = Auth::id();
-        $user = User::findOrFail($userId);
 
-        $data = $request->all();
-        $file = $request->avatar;
-        if (!empty($file)) {
-            $data['avatar'] = $file->getClientOriginalName();
-        }
-
-        if ($data['password']) {
-            $data['password'] = bcrypt($data['password']);
-        } else {
-            $data['password'] = $user->password;
-        }
-
-        if ($user->update($data)) {
-            if (!empty($file)) {
-                $file->move('upload/user/avatar', $file->getClientOriginalName());
-            }
-            return redirect()->with('success', __('Update profile success.'));
-        } else {
-            return redirect()->withErrors('Update profile error.');
-        }
+    public function index(){
+        return view('admin.home');
     }
-    public function edit()
-    {
-        return view("admin.user.profile");
-    }
+    
 
 }

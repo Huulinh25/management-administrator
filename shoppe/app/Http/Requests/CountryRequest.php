@@ -4,11 +4,11 @@ namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class UpdateProfileRequest extends FormRequest
+class CountryRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
-     */ 
+     */
     public function authorize(): bool
     {
         return true;
@@ -22,18 +22,14 @@ class UpdateProfileRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name' => 'required',
-            'image'=>'image|mimes:jpeg,png,jpg,gif|max:2048',
+            'name' => 'required|unique:countries,name',
         ];
     }
     public function messages()
     {
         return [
-            'required' =>':attribute :Trường này bắt buộc phải nhập',
-            'image.image' => 'Trường :attribute phải là một hình ảnh.',
-            'image.mimes' => 'Hình ảnh phải có định dạng jpeg, png, jpg, hoặc gif.',
-            'image.max' => 'Kích thước tệp không được vượt quá 2MB.',
-
+            'required' =>':attribute :Không được để trống trường quốc gia',
+            'unique' => ':attribute đã tồn tại trong cơ sở dữ liệu',
         ];
     }
 }

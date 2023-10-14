@@ -30,7 +30,8 @@
         <div class="col-lg-4 col-xlg-3 col-md-5">
             <div class="card">
                 <div class="card-body">
-                    <center class="m-t-30"> <img src="{{ Auth::user()->avatar }}" class="rounded-circle" width="150" />
+                    <center class="m-t-30">
+                        <img src="{{ asset('admin/user/upload/' . Auth::user()->avatar) }}" class="rounded-circle" width="150" height="150" />
                         <h4 class="card-title m-t-10">{{ Auth::user()->name  }}</h4>
                         <h6 class="card-subtitle">Accoubts Manager Amix corp</h6>
                         <div class="row text-center justify-content-md-center">
@@ -65,17 +66,26 @@
         <div class="col-lg-8 col-xlg-9 col-md-7">
             <div class="card">
                 <div class="card-body">
-                @if ($errors->any())
+                    @if (session('success'))
+                    <div class="alert alert-success">
+                        {{ session('success') }}
+                    </div>
+                    @endif
+                    @if ($errors->any())
                     <div class="alert alert-danger">
                         <ul>
                             @foreach ($errors->all() as $error)
-                                <li>{{ $error }}</li>
+                            <li>{{ $error }}</li>
                             @endforeach
                         </ul>
                     </div>
-                @endif
-                    <form action="#" class="form-horizontal form-material" method="post">
+                    @endif
+                    <form action="{{route('profile')}}" enctype="multipart/form-data" class="form-horizontal form-material" method="post">
                         @csrf
+                        <div class="form-group">
+                            <label class="col-md-12">Avatar</label>
+                            <input type="file" name="avatar" />
+                        </div>
                         <div class="form-group">
                             <label class="col-md-12">Full Name</label>
                             <div class="col-md-12">
@@ -85,13 +95,13 @@
                         <div class="form-group">
                             <label for="example-email" class="col-md-12">Email</label>
                             <div class="col-md-12">
-                                <input type="email" placeholder="johnathan@admin.com" disabled name="email" class="form-control form-control-line" value="{{ Auth::user()->email  }}" name="example-email" id="example-email">
+                                <input type="email" placeholder="johnathan@admin.com" disabled name="email" class="form-control form-control-line" value="{{ Auth::user()->email }}" id="example-email">
                             </div>
                         </div>
                         <div class="form-group">
-                            <label class="col-md-12">Password  (chưa làm mã hóa về lại db)</label>
+                            <label class="col-md-12">Password</label>
                             <div class="col-md-12">
-                                <input type="password" value="{{ Auth::user()->password  }}" name="password" class="form-control form-control-line">
+                                <input type="password" value="" name="password" class="form-control form-control-line">
                             </div>
                         </div>
                         <div class="form-group">
@@ -131,16 +141,6 @@
         </div>
         <!-- Column -->
     </div>
-    <!-- Row -->
-    <!-- ============================================================== -->
-    <!-- End PAge Content -->
-    <!-- ============================================================== -->
-    <!-- ============================================================== -->
-    <!-- Right sidebar -->
-    <!-- ============================================================== -->
-    <!-- .right-sidebar -->
-    <!-- ============================================================== -->
-    <!-- End Right sidebar -->
     <!-- ============================================================== -->
 </div>
 @endsection
