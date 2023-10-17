@@ -7,6 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\UpdateProfileRequest;
 use App\Models\User;
 use Illuminate\Support\Facades\Auth;
+use App\Models\Countries;
 
 class UploadController extends Controller
 {
@@ -26,15 +27,18 @@ class UploadController extends Controller
      *
      * @return \Illuminate\Contracts\Support\Renderable
      */
+    
     public function update(UpdateProfileRequest $request)
     {
-        $userId = Auth::id();
-        $user = User::findOrFail($userId);
+        $userId = Auth::id(); //Dòng này lấy ID của người dùng hiện tại từ phiên đăng nhập
+        $user = User::findOrFail($userId); // Dòng này sử dụng ID người dùng đã lấy được từ bước trước để tìm kiếm thông tin người dùng trong cơ sở dữ liệu
         $data = $request->all();
-        // dd($data);
+        dd($data);
+        
         $file = $request->avatar;
+        
         if (!empty($file)) {
-            $data['avatar'] = $file->getClientOriginalName();
+            $data['avatar'] = $file->getClientOriginalName(); //Nếu có hình ảnh đã tải lên, tên hình ảnh mới sẽ được lấy 
         }
 
         if ($data['password']) {
@@ -43,11 +47,12 @@ class UploadController extends Controller
             $data['password'] = $user->password;
         }
 
+       
         if ($user->update($data)) {
             if (!empty($file)) {
                 $file->move('admin/user/upload', $file->getClientOriginalName());
             }
-            return redirect('admin/profile')->with('success',('Update profile success.'));
+            return redirect('admin/profile')->with('success', ('Update profile success.'));
         } else {
             return redirect('admin/profile')->withErrors('Update profile error.');
         }
@@ -55,9 +60,10 @@ class UploadController extends Controller
 
     public function edit()
     {
-        return view("admin.user.profile");
+        $countries = Countries::all();
+        return view("admin.userProfile.profile", compact('countries'));
     }
-    
+
     public function index()
     {
         //
@@ -87,7 +93,7 @@ class UploadController extends Controller
         //
     }
 
-   
+
 
     /**
      * Remove the specified resource from storage.

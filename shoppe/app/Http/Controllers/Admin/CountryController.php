@@ -35,7 +35,7 @@ class CountryController extends Controller
     // }
     public function addCountry()
     {
-        return view('admin.user.addCountry');
+        return view('admin.country.addCountry');
     }
     public function postCountry(CountryRequest $request)
     {
@@ -49,7 +49,7 @@ class CountryController extends Controller
     public function getEditCountry($id)
     {
         $country = Countries::find($id);
-        return view('admin.user.editCountry', compact('country'));
+        return view('admin.country.editCountry', compact('country'));
     }
 
     public function postEditCountry(CountryRequest $request, $id=0)
@@ -74,9 +74,9 @@ class CountryController extends Controller
 
     public function index()
     {
-        $countries = countries::all(); // Lấy tất cả dữ liệu từ bảng "player"
+        $countries = countries::all(); // Lấy tất cả dữ liệu từ bảng "countries"
         // dd($players);
-        return view('admin.user.country')->with('countries', $countries);
+        return view('admin.country.country')->with('countries', $countries);
     }
 
     /**

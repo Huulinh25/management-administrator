@@ -15,7 +15,7 @@
     <title>Shoppe admin</title>
 
     <!-- Custom CSS -->
-    
+
     <link href="{{asset('admin/assets/libs/chartist/dist/chartist.min.css')}}" rel="stylesheet">
 
     <link href="{{asset('admin/dist/css/style.min.css')}}" rel="stylesheet">
@@ -35,12 +35,23 @@
         </div>
 
     </div>
-    
+    <script src="https://cdn.ckeditor.com/4.16.0/standard/ckeditor.js"></script>
+    <script>
+        CKEDITOR.replace('editor1');
+    </script>
+    <!-- ckeditor -->
+    <script src="{{ asset('ckeditor/ckeditor.js') }}"></script>
+
+    <!-- <script>
+        CKEDITOR.replace('editor1');
+    </script> -->
+
+
     <script src="{{ asset('admin/assets/libs/jquery/dist/jquery.min.js')}}"></script>
-    
+
     <!-- Bootstrap tether Core JavaScript -->
     <script src="{{ asset('admin/assets/libs/popper.js/dist/umd/popper.min.js')}}"></script>
-    
+
     <script src="{{ asset('admin/assets/libs/bootstrap/dist/js/bootstrap.min.js')}}"></script>
 
     <!-- slimscrollbar scrollbar JavaScript -->
@@ -62,7 +73,7 @@
     <!-- <script src="{{ asset('admin/')}}"></script> -->
 
     <script src="{{asset('admin/assets/libs/chartist-plugin-tooltips/dist/chartist-plugin-tooltip.min.js')}}"></script>
-    
+
     <script src="{{ asset('admin/dist/js/pages/dashboards/dashboard1.js')}}"></script>
     <!-- <script src="/shoppe/public/admin/dist/js/pages/dashboards/dashboard1.js"></script> -->
     <!-- <script src="../../dist/js/pages/dashboards/dashboard1.js"></script> -->
