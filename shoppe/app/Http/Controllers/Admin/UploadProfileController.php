@@ -9,7 +9,7 @@ use App\Models\User;
 use Illuminate\Support\Facades\Auth;
 use App\Models\Countries;
 
-class UploadController extends Controller
+class UploadProfileController extends Controller
 {
     /**
      * Create a new controller instance.
@@ -33,7 +33,7 @@ class UploadController extends Controller
         $userId = Auth::id(); //Dòng này lấy ID của người dùng hiện tại từ phiên đăng nhập
         $user = User::findOrFail($userId); // Dòng này sử dụng ID người dùng đã lấy được từ bước trước để tìm kiếm thông tin người dùng trong cơ sở dữ liệu
         $data = $request->all();
-        dd($data);
+        // dd($data);
         
         $file = $request->avatar;
         
@@ -47,7 +47,7 @@ class UploadController extends Controller
             $data['password'] = $user->password;
         }
 
-       
+        // dd($data);
         if ($user->update($data)) {
             if (!empty($file)) {
                 $file->move('admin/user/upload', $file->getClientOriginalName());

@@ -3,7 +3,7 @@
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\Admin\DashboardController; 
-use App\Http\Controllers\Admin\UploadController;
+use App\Http\Controllers\Admin\UploadProfileController; 
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\BlogController;
 
@@ -30,8 +30,8 @@ Route::prefix('admin')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
     
     // PROFILE
-    Route::get('/profile', [UploadController::class, 'edit'])->name('profile');
-    Route::post('/profile', [UploadController::class, 'update'])->name('profile');
+    Route::get('/profile', [UploadProfileController::class, 'edit'])->name('profile');
+    Route::post('/profile', [UploadProfileController::class, 'update'])->name('profile');
 
     //COUNTRY
     Route::prefix('country')->name('country.') ->group(function () {
