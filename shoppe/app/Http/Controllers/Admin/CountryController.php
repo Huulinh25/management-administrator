@@ -28,11 +28,11 @@ class CountryController extends Controller
      * @return \Illuminate\Contracts\Support\Renderable
      */
     // TEST DATA
-    // public function getCountry(){
-    //     $countries = countries::all();
-    //     // dd($countries);
-    //     return view('country')->with('countries', $countries);
-    // }
+    public function getCountry(){
+        $countries = countries::all();
+        // dd($countries);
+        return view('country')->with('countries', $countries);
+    }
     public function addCountry()
     {
         return view('admin.country.addCountry');
@@ -74,9 +74,9 @@ class CountryController extends Controller
 
     public function index()
     {
-        $countries = countries::all(); // Lấy tất cả dữ liệu từ bảng "countries"
+        $countries = countries::paginate(3); // Lấy tất cả dữ liệu từ bảng "countries"
         // dd($players);
-        return view('admin.country.country')->with('countries', $countries);
+        return view('admin.country.country',compact('countries'))->with('i',(request()->input('page',1) -1) *3);
     }
 
     /**

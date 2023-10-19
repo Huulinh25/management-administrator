@@ -87,7 +87,7 @@ class BlogController extends Controller
 
     public function index()
     {
-        $blogs = Blogs::all(); // Lấy tất cả dữ liệu từ bảng "blogs"
+        $blogs = Blogs::paginate(3); // Lấy tất cả dữ liệu từ bảng "blogs"
         // dd($players);
         return view('admin.blog.blog')->with('blogs', $blogs);
     }

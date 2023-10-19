@@ -23,7 +23,7 @@
             <table class="table">
                 <thead class="thead-light">
                     <tr>
-                        <th scope="col">#</th>
+                        <th scope="col">STT</th>
                         <th scope="col">Name</th>
                         <th scope="col">Handle</th>
                     </tr>
@@ -34,7 +34,7 @@
                         foreach ($countries as $country) {
                     ?>
                             <tr>
-                                <th scope="row"><?php echo $country->id ?></th>
+                                <th scope="row">{{++$i}}</th>
                                 <th><?php echo $country->name ?></th>
                                 <th>
                                     <a href="{{ route('country.getEditCountry', ['id' => $country->id]) }}" class="btn btn-primary text-white mr-2">Edit</a>
@@ -50,6 +50,7 @@
             <a href="{{ route('country.addCountry') }}" class="btn btn-success text-white ml-2 mb-2">Create Country</a>
 
         </div>
+        {{$countries->links()}}
     </div>
 </div>
 @endsection

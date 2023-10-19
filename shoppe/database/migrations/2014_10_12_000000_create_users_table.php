@@ -32,6 +32,11 @@ return new class extends Migration
         DB::statement("ALTER TABLE users MODIFY address varchar(255) NULL AFTER phone");
         DB::statement("ALTER TABLE users MODIFY id_country int NULL AFTER address");
         DB::statement("ALTER TABLE users MODIFY avatar varchar(255) NULL AFTER id_country");
+        
+        Schema::table('users', function (Blueprint $table) {
+            $table->unsignedInteger('level')->after('remember_token')
+                      ->default(1)->comment = '1:admin 0:member';
+        });
     }
 
     /**

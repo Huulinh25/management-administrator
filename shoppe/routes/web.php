@@ -7,7 +7,8 @@ use App\Http\Controllers\Admin\UploadProfileController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\BlogController;
 
-
+use App\Http\Controllers\Frontend\HomeController;
+use App\Http\Controllers\Frontend\MemberController;
 
 /*
 |--------------------------------------------------------------------------
@@ -22,12 +23,11 @@ use App\Http\Controllers\Admin\BlogController;
 Auth::routes();
 
 
-
 Route::get('/', function(){
     return view('home');
 });
 Route::prefix('admin')->group(function () {
-    Route::get('/dashboard', [DashboardController::class, 'index'])->name('admin.dashboard');
+    Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
     
     // PROFILE
     Route::get('/profile', [UploadProfileController::class, 'edit'])->name('profile');
@@ -38,7 +38,7 @@ Route::prefix('admin')->group(function () {
         Route::get('/', [CountryController::class, 'index'])->name('country');
 
         //test DATA
-        // Route::get('/getCountry', [CountryController::class, 'getCountry'])->name('getCountry');
+        Route::get('/getCountry', [CountryController::class, 'getCountry'])->name('getCountry');
         Route::get('/addCountry', [CountryController::class, 'addCountry'])->name('addCountry'); // form thêm
         Route::post('/addCountry', [CountryController::class, 'postCountry'])->name('postCountry'); // form thêm
 
@@ -74,4 +74,13 @@ Route::prefix('admin')->group(function () {
 // Route::get('/pages-profile', function(){
 //     return view('pages-profile');
 // })->name('pages-profile');
+    // Route::prefix('member')->group(function () {
+        
+    //     Route::get('/login', [MemberController::class, 'getLogin'])->name('getLogin');
+    //     Route::post('/login', [MemberController::class, 'login'])->name('login');
 
+
+    //     Route::get('/register', [MemberController::class, 'getRegister'])->name('getRegister');
+    //     // Route::get('/home', [HomeController::class, 'index'])->name('home');    
+
+    // });
