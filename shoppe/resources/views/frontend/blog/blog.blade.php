@@ -1,4 +1,4 @@
-@extends('frontend.layout.app')
+@extends('frontend.layouts.app')
 @section('content')
 <div class="col-12">
     <div class="card">
@@ -47,8 +47,7 @@
                                 </th>
                                 <th><?php echo $blog->description ?></th>
                                 <th>
-                                    <a href="{{route('blog.getEditBlog',['id' => $blog->id])}}" class="btn btn-primary text-white mr-2">Edit</a>
-                                    <a href="{{route('blog.deleteBlog',['id' => $blog->id])}}" class="btn btn-danger text-white mr-2">Delete</a>
+                                    <a href="{{route('member.detailBlog', $blog->id)}}" class="btn btn-success text-white mr-2">View detail</a>
                                 </th>
                             </tr>
                     <?php
@@ -57,7 +56,6 @@
                     ?>
                 </tbody>
             </table>
-            <a href="{{ route('blog.addBlog') }}" class="btn btn-success text-white ml-2 mb-2">Create Country</a>
 
         </div>
         {{ $blogs->links() }}

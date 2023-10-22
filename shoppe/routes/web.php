@@ -2,14 +2,14 @@
 
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\Admin\DashboardController; 
-use App\Http\Controllers\Admin\UploadProfileController; 
+use App\Http\Controllers\Admin\DashboardController;
+use App\Http\Controllers\Admin\UploadProfileController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\BlogController;
 
-use App\Http\Controllers\Frontend\HomeController;
-use App\Http\Controllers\Frontend\MemberController;
-
+use App\Http\Controllers\Frontend\blogs\BlogMemberController;
+use App\Http\Controllers\Frontend\LoginController;
+use App\Http\Controllers\Frontend\RegisterController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -20,21 +20,38 @@ use App\Http\Controllers\Frontend\MemberController;
 | be assigned to the "web" middleware group. Make something great!
 |
 */
+
+Route::prefix('member')->name('member.')->group(function () {
+
+    Route::get('/login', [LoginController::class, 'getLogin'])->name('getLogin'); // lấy form login
+    Route::post('/login', [LoginController::class, 'postLogin'])->name('postLogin'); // post login
+
+    Route::get('/register', [RegisterController::class, 'getRegister'])->name('getRegister'); //lấy form đ ký
+    Route::post('/register', [RegisterController::class, 'postRegister'])->name('postRegister'); // post register
+
+
+    Route::get('/blog', [BlogMemberController::class, 'index'])->name('blog');   
+    Route::get('/detailBlog//{id}', [BlogMemberController::class, 'detailBlog'])->name('detailBlog');    
+
+});
+
+
 Auth::routes();
 
 
-Route::get('/', function(){
+Route::get('/', function () {
     return view('home');
 });
 Route::prefix('admin')->group(function () {
     Route::get('/dashboard', [DashboardController::class, 'index'])->name('dashboard');
-    
+
+
     // PROFILE
     Route::get('/profile', [UploadProfileController::class, 'edit'])->name('profile');
     Route::post('/profile', [UploadProfileController::class, 'update'])->name('profile');
 
     //COUNTRY
-    Route::prefix('country')->name('country.') ->group(function () {
+    Route::prefix('country')->name('country.')->group(function () {
         Route::get('/', [CountryController::class, 'index'])->name('country');
 
         //test DATA
@@ -47,12 +64,10 @@ Route::prefix('admin')->group(function () {
         Route::post('/edit/{id}', [CountryController::class, 'postEditCountry'])->name('postEditCountry');
 
         Route::get('/delete/{id}', [CountryController::class, 'deleteCountry'])->name('deleteCountry');
-        
-        
     });
 
     // //BLOG
-    Route::prefix('blog')->name('blog.') ->group(function () {
+    Route::prefix('blog')->name('blog.')->group(function () {
         Route::get('/', [BlogController::class, 'index'])->name('blog');
         // Route::get('/getBlog', [BlogController::class, 'getBlog'])->name('getBlog'); // test data Blog
 
@@ -61,26 +76,14 @@ Route::prefix('admin')->group(function () {
 
         Route::get('/editBlog/{id}', [BlogController::class, 'getEditBlog'])->name('getEditBlog'); // form edit Blog
         Route::post('/editBlog/{id}', [BlogController::class, 'postEditBlog'])->name('postEditBlog');
-        
+
 
         Route::get('/delete/{id}', [BlogController::class, 'deleteBlog'])->name('deleteBlog');
-
-
     });
-
-
 });
 
 // Route::get('/pages-profile', function(){
 //     return view('pages-profile');
 // })->name('pages-profile');
-    // Route::prefix('member')->group(function () {
-        
-    //     Route::get('/login', [MemberController::class, 'getLogin'])->name('getLogin');
-    //     Route::post('/login', [MemberController::class, 'login'])->name('login');
 
 
-    //     Route::get('/register', [MemberController::class, 'getRegister'])->name('getRegister');
-    //     // Route::get('/home', [HomeController::class, 'index'])->name('home');    
-
-    // });

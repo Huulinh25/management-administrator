@@ -20,11 +20,11 @@
 							</ul>
 						</div>
 						@endif
-						<form action="#" method="post">
+						<form action="{{route('member.postLogin')}}" method="post">
 
 						@csrf
 							<input type="email" placeholder="Email Address" name="email"/>
-							<input type="text" placeholder="Password" name="password"/>
+							<input type="password" placeholder="Password" name="password"/>
 							<span>
 								<input type="checkbox" class="checkbox"> 
 								Keep me signed in

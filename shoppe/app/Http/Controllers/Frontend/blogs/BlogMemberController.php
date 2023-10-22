@@ -1,44 +1,28 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers\Frontend\blogs;
 
 use App\Http\Controllers\Controller;
+use App\Models\Blogs;
 use Illuminate\Http\Request;
-use App\Http\Requests\MemberLoginRequest;
-use \Illuminate\Support\Facades\Auth;
-class MemberController extends Controller
+
+class BlogMemberController extends Controller
 {
     /**
      * Display a listing of the resource.
-     */ 
-    public function getLogin(){
-        return view("frontend.home.login");
-    }
-    public function login(MemberLoginRequest $request){
-        $login =[
-            'email' =>$request->email,
-            'password' =>$request->password,
-            'level' =>0
-        ];
-        $remember = false;
-
-        if($request->remember_me){
-            $remember = true;
-        }
-
-        if(Auth::attempt($login,$remember)){
-            return redirect('/');
-        }else{
-            return redirect()->back()->withErrors('Email or password is not correct');
-        }
+     */
+    public function detailBlog($id = 0)
+    {
+        $blog = Blogs::find($id); // Thay 'id' thành $id
+        // dd($blog) ;
+        return view('frontend.blog.detailBlog')->with('blog', $blog);
     }
 
-    public function getRegister(){
-        return view("frontend.home.register");
-    }
     public function index()
     {
-        //
+        $blogs = Blogs::paginate(3); // Lấy tất cả dữ liệu từ bảng "blogs"
+        // dd($players);
+        return view('frontend.blog.blog')->with('blogs', $blogs);
     }
 
     /**

@@ -57,7 +57,7 @@
                     ?>
                 </tbody>
             </table>
-            <a href="{{ route('blog.addBlog') }}" class="btn btn-success text-white ml-2 mb-2">Create Country</a>
+            <a href="{{ route('blog.addBlog') }}" class="btn btn-success text-white ml-2 mb-2">Create Blog</a>
 
         </div>
         {{ $blogs->links() }}
