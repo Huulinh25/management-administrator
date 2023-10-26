@@ -13,6 +13,10 @@
     <link href="{{asset('frontend/css/animate.css') }}" rel="stylesheet">
     <link href="{{asset('frontend/css/main.css') }}" rel="stylesheet">
     <link href="{{asset('frontend/css/responsive.css') }}" rel="stylesheet">
+    <link href="{{asset('frontend/css/detailBlog.css') }}" rel="stylesheet">
+
+
+    <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
     
     <!--[if lt IE 9]>
     <script src="js/html5shiv.js"></script>
@@ -23,6 +27,15 @@
     <link rel="apple-touch-icon-precomposed" sizes="114x114" href="images/ico/apple-touch-icon-114-precomposed.png">
     <link rel="apple-touch-icon-precomposed" sizes="72x72" href="images/ico/apple-touch-icon-72-precomposed.png">
     <link rel="apple-touch-icon-precomposed" href="images/ico/apple-touch-icon-57-precomposed.png">
+    
+    <link type="text/css" rel="stylesheet" href="{{asset('frontend/rate/css/rate.css')}}">
+    <script src="{{asset('frontend/rate/js/jquery-1.9.1.min.js')}}"></script>
+    
+    <!-- CSRF Token -->
+    <!-- /////////////////////CHÚ Ý\\\\\\\\\\\\\\\\\\\\\\\\\\\ -->
+    <meta name="csrf-token" content="{{ csrf_token() }}"> 
+    
+    
 </head>
 <body>
     @include('frontend.layouts.header')
@@ -30,7 +43,7 @@
     @yield('content')
     @include('frontend.layouts.footer')
 
-    <script type="text/javascript" src="{{asset('frontend/js/jquery.js') }}"></script>
+   
     <script type="text/javascript" src="{{asset('frontend/js/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{asset('frontend/js/jquery.scrollUp.min.js') }}"></script>
     <script type="text/javascript" src="{{asset('frontend/js/price-range.js') }}"></script>

@@ -7,7 +7,7 @@ use App\Http\Controllers\Admin\UploadProfileController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\BlogController;
 
-use App\Http\Controllers\Frontend\blogs\BlogMemberController;
+use App\Http\Controllers\Frontend\BlogMemberController;
 use App\Http\Controllers\Frontend\LoginController;
 use App\Http\Controllers\Frontend\RegisterController;
 /*
@@ -29,11 +29,22 @@ Route::prefix('member')->name('member.')->group(function () {
     Route::get('/register', [RegisterController::class, 'getRegister'])->name('getRegister'); //lấy form đ ký
     Route::post('/register', [RegisterController::class, 'postRegister'])->name('postRegister'); // post register
 
-
-    Route::get('/blog', [BlogMemberController::class, 'index'])->name('blog');   
-    Route::get('/detailBlog//{id}', [BlogMemberController::class, 'detailBlog'])->name('detailBlog');    
-
 });
+
+//Lấy blog đầu tiên khi user nhấn vào navbar
+Route::get('blog/first', [BlogMemberController::class, 'showFirstBlog'])->name('firstBlog');
+
+Route::get('/blog/list', [BlogMemberController::class, 'index'])->name('blog');   
+Route::get('/blog/detail/{id}', [BlogMemberController::class, 'detailBlog'])->name('detailBlog');
+
+//Rate Blog
+Route::get('/blog/getRate/{idBlog}', [BlogMemberController::class, 'getRateBlog'])->name('getRateBlog');
+Route::post('/blog/rate', [BlogMemberController::class, 'rateBlog'])->name('rateBlog');
+
+// Route::get('/blog/detail/{id}', [BlogMemberController::class, 'averageRate'])->name('averageRate');
+
+
+
 
 
 Auth::routes();
