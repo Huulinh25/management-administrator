@@ -2,55 +2,54 @@
 
 namespace App\Http\Controllers\Frontend;
 
-use App\Http\Requests\RegisterRequest;
+use App\Http\Controllers\Controller;
 use App\Models\Countries;
 use App\Models\User;
-
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Hash;
+use Illuminate\Support\Facades\Auth;
 
-
-class RegisterController extends Controller
+class ProfileController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function getRegister(){
-        $countries = Countries::all();
-        return view("frontend.member.register", compact('countries'));
+    public function __construct()
+    {
+        // kiem tra e da login chua?
+        $this->middleware('auth');
     }
-    public function postRegister(RegisterRequest $request){
+    
+    public function updateProfile(Request $request){
+        $userId = Auth::id();
+        $user = User::findOrFail($userId);
         $data = $request->all();
-
-        $user = new User();
-        $user->name = $request->input('name');
-        $user->email = $request->input('email');
-        $user->password = bcrypt($request->input('password'));
-        $user->phone = $request->input('phone');
-        $user->id_country = $request->input('id_country'); // Thêm id_country
-        $user->level = 0;
-
+        // dd($data);
         $file = $request->avatar;
+        
         if (!empty($file)) {
             $data['avatar'] = $file->getClientOriginalName(); //Nếu có hình ảnh đã tải lên, tên hình ảnh mới sẽ được lấy 
         }
 
-        $user->save();
+        if ($data['password']) {
+            $data['password'] = bcrypt($data['password']);
+        } else {
+            $data['password'] = $user->password;
+        }
+
+        // dd($data);
         if ($user->update($data)) {
             if (!empty($file)) {
                 $file->move('member/user/upload', $file->getClientOriginalName());
             }
-            return redirect()->route('member.getLogin')->with('success', 'User registered successfully');
-        }else {
-            return redirect()->route('member.getLogin')->withErrors('Update profile error.');
+            return redirect('member/account/update')->with('success', ('Update profile success.'));
+        } else {
+            return redirect('member/account/update')->withErrors('Update profile error.');
         }
-
-        
     }
     public function index()
     {
-        //
+        $countries = Countries::all();
+        return view("frontend.member.profile", compact('countries'));
     }
 
     /**

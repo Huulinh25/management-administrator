@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\Blogs;
 use Illuminate\Http\Request;
 use App\Models\Rates;
+use App\Models\Comments;
 use Illuminate\Support\Facades\Auth;
 
 class BlogMemberController extends Controller
@@ -13,13 +14,35 @@ class BlogMemberController extends Controller
     /**
      * Display a listing of the resource.
      */
+    
+    
+    public function postCmt(Request $request){
+        
+        $comment = $request->input('comment');
+        $idBlog = $request->input('id_blog');
+        $id_user = Auth::id();  
+        $avatar = Auth::user()->avatar;
+        $name_user = Auth::user()->name;
+        $level = $request->input('level');
 
-    public function index()
-    {
-        $blogs = Blogs::paginate(3); // Lấy tất cả dữ liệu từ bảng "blogs"
-        // dd($players);
-        return view('frontend.blog.blog')->with('blogs', $blogs);
+        $cmt = new Comments();
+        $cmt->cmt = $comment;
+        $cmt->id_blog = $idBlog;
+        $cmt->id_user = $id_user;
+        $cmt->avatar = $avatar;
+        $cmt->name_user = $name_user;
+        if($level >0){
+            $cmt->level = $level;
+        }
+        else{
+            $cmt->level = 0;
+        }
+        $cmt->save();
+        
+        return response()->json(['success' => 'Comment successfully']);
+
     }
+    // BLOG
     //Lấy blog đầu tiên
     public function showFirstBlog()
     {
@@ -46,7 +69,8 @@ class BlogMemberController extends Controller
         return response()->json(['rateValue' => $rateValue]);
     }
 
-    public function rateBlog(Request $request)
+
+    public function postRateBlog(Request $request)
     {
         $userId = Auth::id();
         $idBlog = $request->input('id_blog');
@@ -99,15 +123,24 @@ class BlogMemberController extends Controller
         $averageRateResponse = $this->averageRate($blog->id);
         $averageRate = $averageRateResponse->original['averageRate'];
 
+        // Truy vấn tất cả bình luận cho bài đăng cụ thể
+        $comments = Comments::where('id_blog', $id)->get();
         return view('frontend.blog.detailBlog')
             ->with('blog', $blog)
             ->with('previousBlog', $previousBlog)
             ->with('nextBlog', $nextBlog)
             ->with('rateValue', $rateValue)
-            ->with('averageRate', round($averageRate));
+            ->with('averageRate', round($averageRate))
+            ->with('comments', $comments);
     }
 
-
+    
+    public function index()
+    {
+        $blogs = Blogs::paginate(3); // Lấy tất cả dữ liệu từ bảng "blogs"
+        // dd($players);
+        return view('frontend.blog.blog')->with('blogs', $blogs);
+    }
     /**
      * Show the form for creating a new resource.
      */

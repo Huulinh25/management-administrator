@@ -160,7 +160,7 @@
                                             @endfor
                                             <i>{{ $averageRate }}</i>
                                     </span>
-                                    
+
 
                                 </div>
                                 <a href="">
@@ -247,98 +247,76 @@
                 <div class="response-area">
                     <h2>3 RESPONSES</h2>
                     <ul class="media-list">
-                        <li class="media">
-
-                            <a class="pull-left" href="#">
-                                <img class="media-object" src="{{asset('frontend/images/blog/man-two.jpg')}}" alt="">
-                            </a>
-                            <div class="media-body">
-                                <ul class="sinlge-post-meta">
-                                    <li><i class="fa fa-user"></i>Janis Gallagher</li>
-                                    <li><i class="fa fa-clock-o"></i> 1:33 pm</li>
-                                    <li><i class="fa fa-calendar"></i> DEC 5, 2013</li>
-                                </ul>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                                <a class="btn btn-primary" href=""><i class="fa fa-reply"></i>Replay</a>
-                            </div>
-                        </li>
-                        <li class="media second-media">
-                            <a class="pull-left" href="#">
-                                <img class="media-object" src="{{asset('frontend/images/blog/man-three.jpg')}}" alt="">
-                            </a>
-                            <div class="media-body">
-                                <ul class="sinlge-post-meta">
-                                    <li><i class="fa fa-user"></i>Janis Gallagher</li>
-                                    <li><i class="fa fa-clock-o"></i> 1:33 pm</li>
-                                    <li><i class="fa fa-calendar"></i> DEC 5, 2013</li>
-                                </ul>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                                <a class="btn btn-primary" href=""><i class="fa fa-reply"></i>Replay</a>
-                            </div>
-                        </li>
-                        <li class="media second-media">
-                            <a class="pull-left" href="#">
-                                <img class="media-object" src="{{asset('frontend/images/blog/man-three.jpg')}}" alt="">
-                            </a>
-                            <div class="media-body">
-                                <ul class="sinlge-post-meta">
-                                    <li><i class="fa fa-user"></i>Janis Gallagher</li>
-                                    <li><i class="fa fa-clock-o"></i> 1:33 pm</li>
-                                    <li><i class="fa fa-calendar"></i> DEC 5, 2013</li>
-                                </ul>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                                <a class="btn btn-primary" href=""><i class="fa fa-reply"></i>Replay</a>
-                            </div>
-                        </li>
-                        <li class="media second-media">
-                            <a class="pull-left" href="#">
-                                <img class="media-object" src="{{asset('frontend/images/blog/man-three.jpg')}}" alt="">
-                            </a>
-                            <div class="media-body">
-                                <ul class="sinlge-post-meta">
-                                    <li><i class="fa fa-user"></i>Janis Gallagher</li>
-                                    <li><i class="fa fa-clock-o"></i> 1:33 pm</li>
-                                    <li><i class="fa fa-calendar"></i> DEC 5, 2013</li>
-                                </ul>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                                <a class="btn btn-primary" href=""><i class="fa fa-reply"></i>Replay</a>
-                            </div>
-                        </li>
+                    @foreach ($comments as $comment)
+                        @if ($comment->level == 0)
                         <li class="media">
                             <a class="pull-left" href="#">
-                                <img class="media-object" src="{{asset('frontend/images/blog/man-four.jpg')}}" alt="">
+                                <img class="media-object" src="{{ asset('admin/user/upload/' . $comment->avatar) }}" alt="" height="86px" width="121px">
                             </a>
                             <div class="media-body">
                                 <ul class="sinlge-post-meta">
-                                    <li><i class="fa fa-user"></i>Janis Gallagher</li>
-                                    <li><i class="fa fa-clock-o"></i> 1:33 pm</li>
-                                    <li><i class="fa fa-calendar"></i> DEC 5, 2013</li>
+                                    <li><i class="fa fa-user"></i>{{ $comment->name_user }}</li>
+                                    <li><i class="fa fa-clock-o"></i>id: {{ $comment->id }} </li>
+                                    <li><i class="fa fa-calendar"></i> level: {{ $comment->level }} </li>
                                 </ul>
-                                <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</p>
-                                <a class="btn btn-primary" href=""><i class="fa fa-reply"></i>Replay</a>
+                                <p>{{ $comment->cmt }}</p>
+                                <a class="btn btn-primary reply-button" data-comment-id="{{ $comment->id }}"><i class="fa fa-reply"></i>Replay</a>
                             </div>
                         </li>
+                        @endif
+                        @foreach ($comments as $childComment)
+                                @if ($childComment->level == $comment->id)
+                                    <li class="media second-media">
+                                        <a class="pull-left" href="#">
+                                            <img class="media-object" src="{{ asset('admin/user/upload/' . $childComment->avatar) }}" alt="" height="86px" width="121px">
+                                        </a>
+                                        <div class="media-body">
+                                            <ul class="sinlge-post-meta">
+                                                <li><i class="fa fa-user"></i>{{ $childComment->name_user }}</li>
+                                                <li><i class="fa fa-clock-o"></i>id: {{ $childComment->id }}</li>
+                                                <li><i class="fa fa-calendar"></i> level: {{ $childComment->level }}</li>
+                                            </ul>
+                                            <p>{{ $childComment->cmt }}</p>
+                                            <a class="btn btn-primary reply-button" data-comment-id="{{ $childComment->id }}"><i class="fa fa-reply"></i>Replay</a>
+                                        </div>
+                                    </li>
+                                @endif
+                        @endforeach
+                
+                @endforeach
+                </ul>
 
-                    </ul>
-                </div><!--/Response-area-->
-                <div class="replay-box">
-                    <div class="row">
-                        <div class="col-sm-12">
-                            <h2>Leave a replay</h2>
+            </div><!--/Response-area-->
 
-                            <div class="text-area">
-                                <div class="blank-arrow">
-                                    <label>Your Name</label>
-                                </div>
-                                <span>*</span>
-                                <textarea name="message" rows="11"></textarea>
-                                <a class="btn btn-primary" href="">post comment</a>
-                            </div>
+            <div class="replay-box">
+                <div class="row">
+                    <div class="col-sm-12">
+                        <h2>Leave a replay</h2>
+                        @if ($errors->any())
+                        <div class="alert alert-danger">
+                            <ul>
+                                @foreach ($errors->all() as $error)
+                                <li>{{ $error }}</li>
+                                @endforeach
+                            </ul>
                         </div>
+                        @endif
+
+                        <form class="text-area" action="{{url('/blog/cmt')}}" method="post">
+                            @csrf
+                            <div class="blank-arrow">
+                                <label>Your Name</label>
+                            </div>
+                            <span>*</span>
+                            <textarea id="valueComment" name="message" rows="11"></textarea>
+                            <a class="btn btn-primary postComment" href="">post comment</a>
+                        </form>
+
                     </div>
-                </div><!--/Repaly Box-->
-            </div>
+                </div>
+            </div><!--/Repaly Box-->
         </div>
+    </div>
     </div>
 </section>
 
@@ -388,11 +366,69 @@
                     },
                     success: function(data) {
                         console.log(data.success);
-                        // location.reload();
+                        location.reload();
                     }
                 })
             } else {
                 alert('Vui lòng login để đánh giá');
+            }
+        });
+
+        var level = 0; // Mặc định level là 0
+
+        $('.postComment').click(function() {
+            var checkLogin = "{{Auth::Check()}}";
+
+            if (checkLogin) {
+                var comment = $("#valueComment").val();
+                var id_blog = "{{ $blog->id }}";
+
+                // Kiểm tra nếu level không được đặt trong trường hợp không nhấn nút "Reply"
+                if (level === 0) {
+                    // Set level thành 0
+                    level = 0;
+                }
+                // alert(level);
+
+                $.ajax({
+                    type: "POST",
+                    url: "{{ url('/blog/cmt') }}",
+                    data: {
+                        comment: comment,
+                        id_blog: id_blog,
+                        level: level
+                    },
+                    success: function(data) {
+                        console.log(data.success);
+                        //location.reload();
+                        alert('Comment thành công!');
+                    }
+                });
+            } else {
+                alert('Vui lòng đăng nhập để bình luận!');
+            }
+        });
+
+        $('.reply-button').click(function() {
+            var checkLogin = "{{Auth::Check()}}";
+
+            if (checkLogin) {
+                var commentId = $(this).data('comment-id');
+                alert("Bạn đang trả lời comment số " + commentId);
+                level = commentId; // Set level bằng commentId khi nhấn nút "Reply"
+                // alert(level);
+                $.ajax({
+                    type: "POST",
+                    url: "{{ url('/blog/cmt') }}",
+                    data: {
+                        level: level
+                    },
+                    success: function(data) {
+                        console.log(data.success);
+                        //location.reload();
+                        alert('Reply thành công!');
+                    }
+                });
             }
         });
     });

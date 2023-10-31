@@ -59,12 +59,20 @@
                 <div class="col-md-8 clearfix">
                     <div class="shop-menu clearfix pull-right">
                         <ul class="nav navbar-nav">
-                            <li><a href=""><i class="fa fa-user"></i> Account</a></li>
+                            @if(Auth::check())
+                                <li><a href="{{url('member/account/update')}}"><i class="fa fa-user"></i> Account</a></li>
+                            @else
+                                <!-- Ko hiển thị icon -->
+                            @endif
                             <li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
                             <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
                             <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
-                            <li><a href="login"><i class="fa fa-lock"></i> Login</a></li>
-                            
+                            @if(Auth::check()) <!-- Kiểm tra xem người dùng đã đăng nhập hay chưa -->
+                            <li><a href="{{ url('member/logout') }}"><i class="fa fa-sign-out"></i> Logout</a></li>
+                            @else
+                            <li><a href="{{ url('member/login') }}"><i class="fa fa-lock"></i> Login7777</a></li>
+                            @endif
+
                         </ul>
                     </div>
                 </div>
@@ -93,7 +101,7 @@
                                     <li><a href="product-details.html">Product Details</a></li>
                                     <li><a href="checkout.html">Checkout</a></li>
                                     <li><a href="cart.html">Cart</a></li>
-                                    <li><a href="login.html">Login</a></li>
+                                    <li><a href="{{url('member.login')}}">Login</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>

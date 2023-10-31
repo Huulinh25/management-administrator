@@ -4,38 +4,15 @@ namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
-use App\Http\Requests\MemberLoginRequest;
-use \Illuminate\Support\Facades\Auth;
 
-class LoginController extends Controller
+class MyProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function getLogin(){
-        return view("frontend.member.login");
-    }
-    public function postLogin(MemberLoginRequest $request){
-        $login =[
-            'email' =>$request->email,
-            'password' =>$request->password,
-            'level' =>0,
-        ];
-        $remember = false;
-
-        if($request->remember_me){
-            $remember = true;
-        }
-
-        if(Auth::attempt($login,$remember)){
-            return redirect('member/home');
-        }else{
-            return redirect()->back()->withErrors('Email or password is not correct');
-        }
-    }
     public function index()
     {
-        //
+        return view('frontend.product.my-product');
     }
 
     /**

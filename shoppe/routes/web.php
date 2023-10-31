@@ -10,6 +10,9 @@ use App\Http\Controllers\Admin\BlogController;
 use App\Http\Controllers\Frontend\BlogMemberController;
 use App\Http\Controllers\Frontend\LoginController;
 use App\Http\Controllers\Frontend\RegisterController;
+use App\Http\Controllers\Frontend\LogoutController;
+use App\Http\Controllers\Frontend\ProfileController;
+use App\Http\Controllers\Frontend\MyProductController;
 /*
 |--------------------------------------------------------------------------
 | Web Routes
@@ -29,6 +32,14 @@ Route::prefix('member')->name('member.')->group(function () {
     Route::get('/register', [RegisterController::class, 'getRegister'])->name('getRegister'); //lấy form đ ký
     Route::post('/register', [RegisterController::class, 'postRegister'])->name('postRegister'); // post register
 
+    Route::get('/logout', [LogoutController::class, 'index'])->name('logout');
+
+    Route::get('/account/update',[ProfileController::class,'index'])->name('update'); //view form update profile
+    Route::post('/account/update',[ProfileController::class,'updateProfile'])->name('update'); //view form update profile
+
+    Route::get('/account/my-product',[MyProductController::class,'index'])->name('my-product'); //view form my product
+    
+    
 });
 
 //Lấy blog đầu tiên khi user nhấn vào navbar
@@ -39,9 +50,10 @@ Route::get('/blog/detail/{id}', [BlogMemberController::class, 'detailBlog'])->na
 
 //Rate Blog
 Route::get('/blog/getRate/{idBlog}', [BlogMemberController::class, 'getRateBlog'])->name('getRateBlog');
-Route::post('/blog/rate', [BlogMemberController::class, 'rateBlog'])->name('rateBlog');
+Route::post('/blog/rate', [BlogMemberController::class, 'postRateBlog'])->name('postRateBlog');
 
-// Route::get('/blog/detail/{id}', [BlogMemberController::class, 'averageRate'])->name('averageRate');
+Route::post('/blog/cmt', [BlogMemberController::class, 'postCmt'])->name('postCmt'); //Bình luận mới
+// Route::get('/blog/cmt', [BlogMemberController::class,'postCmt'])->name('replyCmt'); //Trả lời bình luận
 
 
 
