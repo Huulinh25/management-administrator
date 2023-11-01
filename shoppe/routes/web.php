@@ -38,6 +38,8 @@ Route::prefix('member')->name('member.')->group(function () {
     Route::post('/account/update',[ProfileController::class,'updateProfile'])->name('update'); //view form update profile
 
     Route::get('/account/my-product',[MyProductController::class,'index'])->name('my-product'); //view form my product
+    Route::get('/account/add-product',[MyProductController::class,'formProduct'])->name('addProduct'); //view form my product
+    
     
     
 });

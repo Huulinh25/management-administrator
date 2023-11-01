@@ -10,6 +10,9 @@ class MyProductController extends Controller
     /**
      * Display a listing of the resource.
      */
+    public function formProduct(){
+        return view("frontend.product.addProduct");
+    }
     public function index()
     {
         return view('frontend.product.my-product');
