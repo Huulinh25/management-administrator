@@ -39,23 +39,23 @@
                             </ul>
                         </div>
                         @endif
-                        <form action="{{ route('member.update') }}" enctype="multipart/form-data" method="post">
+                        <form action="{{ route('member.postProduct') }}" enctype="multipart/form-data" method="post">
                             @csrf
                             <input name="name" type="text" placeholder="Name" value="" />
-                            <input name="price" type="email" placeholder="Price" value="" />
+                            <input name="price" type="number" placeholder="Price" value="" />
                             <select name="id_category" class="form-control form-control-line">
                                 <option value="">Please choose category</option>
-                                <option value="">Category1</option>
-                                <option value="">Category2</option>
+                                <option value="1">Category1</option>
+                                <option value="2">Category2</option>
                             </select>
                             <select name="id_brand" class="form-control form-control-line">
                                 <option value="">Please choose brand</option>
-                                <option value="">Brand1</option>
-                                <option value="">Brand2</option>
+                                <option value="1">Brand1</option>
+                                <option value="2">Brand2</option>
                             </select>
                             <select name="status" class="form-control form-control-line">
-                                <option value="">Sale</option>
-                                <option value="">New</option>
+                                <option value="1">Sale</option>
+                                <option value="0">New</option>
                             </select>
 
                             <div class="input-group upLine">
@@ -69,7 +69,7 @@
 
                             <textarea name="detail" id="" placeholder="Detail"></textarea>
 
-                            <button type="submit" class="btn btn-default" style="margin-bottom: 20px;">UPDATE</button>
+                            <button type="submit" class="btn btn-default" style="margin-bottom: 20px;">ADD</button>
                         </form>
                     </div>
                 </div>

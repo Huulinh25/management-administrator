@@ -54,28 +54,22 @@ class BlogController extends Controller
         // dd($blog);
         return view('admin.blog.editBlog', compact('blog'));
     }
-
     public function postEditBlog(BlogRequest $request, $id = 0)
     {
         $blog = Blogs::find($id);
-
         if (!$blog) {
             return redirect()->route('blog.blog')->withErrors('Blog not found.');
         }
-
         $data = $request->all();
         $file = $request->image;
-
         if (!empty($file)) {
             $data['image'] = $file->getClientOriginalName();
             $file->move('admin/user/upload', $file->getClientOriginalName());
         }
-
         $blog->update($data);
 
         return redirect()->route('blog.blog')->with('success', 'Updated blog successfully');
     }
-
     public function deleteBlog($id=0){
         if(!empty($id)){
             Blogs::where('id', $id)->delete();
@@ -83,15 +77,12 @@ class BlogController extends Controller
             return redirect()->route('blog.blog')->with('success', 'Delete blog successfully');
         }
     }
-
-
     public function index()
     {
         $blogs = Blogs::paginate(3); // Lấy tất cả dữ liệu từ bảng "blogs"
         // dd($players);
         return view('admin.blog.blog')->with('blogs', $blogs);
     }
-
     /**
      * Show the form for creating a new resource.
      */

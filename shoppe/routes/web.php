@@ -6,6 +6,9 @@ use App\Http\Controllers\Admin\DashboardController;
 use App\Http\Controllers\Admin\UploadProfileController;
 use App\Http\Controllers\Admin\CountryController;
 use App\Http\Controllers\Admin\BlogController;
+use App\Http\Controllers\Admin\CategoryController;
+use App\Http\Controllers\Admin\BrandController;
+
 
 use App\Http\Controllers\Frontend\BlogMemberController;
 use App\Http\Controllers\Frontend\LoginController;
@@ -38,7 +41,9 @@ Route::prefix('member')->name('member.')->group(function () {
     Route::post('/account/update',[ProfileController::class,'updateProfile'])->name('update'); //view form update profile
 
     Route::get('/account/my-product',[MyProductController::class,'index'])->name('my-product'); //view form my product
-    Route::get('/account/add-product',[MyProductController::class,'formProduct'])->name('addProduct'); //view form my product
+
+    Route::get('/account/add-product',[MyProductController::class,'formProduct'])->name('getProduct'); //view form my product
+    Route::post('/account/add-product',[MyProductController::class,'postProduct'])->name('postProduct'); //view form my product
     
     
     
@@ -105,10 +110,28 @@ Route::prefix('admin')->group(function () {
 
         Route::get('/delete/{id}', [BlogController::class, 'deleteBlog'])->name('deleteBlog');
     });
-});
 
-// Route::get('/pages-profile', function(){
-//     return view('pages-profile');
-// })->name('pages-profile');
+    Route::prefix('category')->name('category.')->group(function () {
+        Route::get('/',[CategoryController::class,'index'])->name('category'); //get form Category
+
+        Route::get('/addCategory',[CategoryController::class,'addCategory'])->name('addCategory'); //get form add Category
+        Route::post('/postCategory',[CategoryController::class,'postCategory'])->name('postCategory'); //get form add Category
+
+        Route::get('/editBlog/{id}', [CategoryController::class, 'getEditCategory'])->name('getEditCategory'); // form edit Blog
+        Route::post('/editCategory/{id}', [CategoryController::class, 'postEditCategory'])->name('postEditCategory');
+        
+        Route::get('/delete/{id}', [CategoryController::class, 'deleteCategory'])->name('deleteCategory');
+    });
+
+    Route::prefix('brand')->name('brand.')->group(function () {
+        Route::get('/',[BrandController::class,'index'])->name('brand'); //get form brand
+
+        Route::get('/addBrand',[BrandController::class,'addBrand'])->name('addBrand'); //get form add Category
+        Route::post('/postBrand',[BrandController::class,'postBrand'])->name('postBrand'); //post Category
+
+        Route::get('/delete/{id}', [BrandController::class, 'deleteBrand'])->name('deleteBrand');
+
+    });
+});
 
 

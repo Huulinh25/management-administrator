@@ -1,27 +1,37 @@
 <?php
 
-namespace App\Http\Controllers\Frontend;
+namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brands;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
+use App\Http\Requests\BrandRequest;
 
-class MyProductController extends Controller
+class BrandController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function postProduct(Request $request){
-        $userId = Auth::id(); //Dòng này lấy ID của người dùng hiện tại từ phiên đăng nhập
-        $data = $request->all();
-        dd($data);
+    public function postBrand(BrandRequest $request){
+        $brand = new Brands();
+        $brand->brand_name = $request->input('brand_name');
+        $brand->save();
+        return redirect('admin/brand')->with('success','Add brand successfully');
     }
-    public function formProduct(){
-        return view("frontend.product.addProduct");
+    public function addBrand(){
+        return view('admin.product.addBrand');
+    }
+    public function deleteBrand($id=0){
+        if(!empty($id)){
+            Brands::where('id', $id)->delete();
+
+            return redirect()->route('brand.brand')->with('success', 'Delete brand successfully');
+        }
     }
     public function index()
     {
-        return view('frontend.product.my-product');
+        $brands = Brands::paginate(3);
+        return view('admin.product.brand')->with('brands', $brands);
     }
 
     /**
