@@ -12,4 +12,6 @@ class Brands extends Model
     protected $primaryKey = 'id';
     public $timestamps = true;
     protected $fillable = ['brand_name'];
+
+    
 }

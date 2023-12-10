@@ -41,9 +41,9 @@ class RegisterController extends Controller
             if (!empty($file)) {
                 $file->move('member/user/upload', $file->getClientOriginalName());
             }
-            return redirect()->route('member.getLogin')->with('success', 'User registered successfully');
+            return redirect('/member-login')->with('success', 'User registered successfully');
         }else {
-            return redirect()->route('member.getLogin')->withErrors('Update profile error.');
+            return redirect('/member-login')->withErrors('User registration failed! Please try again');
         }
 
         

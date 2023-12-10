@@ -1,3 +1,9 @@
+<?php session_start();
+// session()->flush();   
+// if (isset($_SESSION['cartTotal'])) {
+//     $cartTotal = $_SESSION['cartTotal'];
+// }
+?>
 <header id="header"><!--header-->
     <div class="header_top"><!--header_top-->
         <div class="container">
@@ -30,7 +36,7 @@
             <div class="row">
                 <div class="col-md-4 clearfix">
                     <div class="logo pull-left">
-                        <a href="index.html"><img src="{{asset('frontend/images/home/logo.png')}}" alt="" /></a>
+                        <a href="{{url('/home')}}"><img src="{{asset('frontend/images/home/logo.png')}}" alt="" /></a>
                     </div>
                     <div class="btn-group pull-right clearfix">
                         <div class="btn-group">
@@ -60,19 +66,28 @@
                     <div class="shop-menu clearfix pull-right">
                         <ul class="nav navbar-nav">
                             @if(Auth::check())
-                                <li><a href="{{url('member/account/update')}}"><i class="fa fa-user"></i> Account</a></li>
+                            <li><a href="{{url('/member-profile')}}"><i class="fa fa-user"></i> Account</a></li>
                             @else
-                                <!-- Ko hiển thị icon -->
+                            <!-- Ko hiển thị icon -->
                             @endif
                             <li><a href=""><i class="fa fa-star"></i> Wishlist</a></li>
-                            <li><a href="checkout.html"><i class="fa fa-crosshairs"></i> Checkout</a></li>
-                            <li><a href="cart.html"><i class="fa fa-shopping-cart"></i> Cart</a></li>
+                            <li><a href="{{url('/account/check-out-cart')}}"><i class="fa fa-crosshairs"></i> Checkout</a></li>
+                            <li>
+                                <a href="{{ url('/account/cart') }}">
+                                    <i class="fa fa-shopping-cart">
+                                        <sup class="cartTotal" style="color: red;">
+                                            {{ session()->get('cartTotal',0) }}
+                                        </sup>
+                                    </i>
+                                    Cart
+                                </a>
+                            </li>
                             @if(Auth::check()) <!-- Kiểm tra xem người dùng đã đăng nhập hay chưa -->
-                            <li><a href="{{ url('member/logout') }}"><i class="fa fa-sign-out"></i> Logout</a></li>
+                            <li><a href="{{ url('/member-logout') }}"><i class="fa fa-sign-out"></i> Logout</a></li>
                             @else
-                            <li><a href="{{ url('member/login') }}"><i class="fa fa-lock"></i> Login7777</a></li>
+                            <li><a href="{{ url('/member-login') }}"><i class="fa fa-lock"></i> Login</a></li>
+                            <li><a href="{{ url('/member-register') }}"><i class="fa fa-user-plus"></i> Regiter</a></li>
                             @endif
-
                         </ul>
                     </div>
                 </div>
@@ -94,14 +109,14 @@
                     </div>
                     <div class="mainmenu pull-left">
                         <ul class="nav navbar-nav collapse navbar-collapse">
-                            <li><a href="index.html" class="active">Home</a></li>
+                            <li><a href="{{url('/home')}}">Home</a></li>
                             <li class="dropdown"><a href="#">Shop<i class="fa fa-angle-down"></i></a>
                                 <ul role="menu" class="sub-menu">
-                                    <li><a href="shop.html">Products</a></li>
+                                    <li><a href="{{url('/account/my-product')}}">Products</a></li>
                                     <li><a href="product-details.html">Product Details</a></li>
                                     <li><a href="checkout.html">Checkout</a></li>
-                                    <li><a href="cart.html">Cart</a></li>
-                                    <li><a href="{{url('member.login')}}">Login</a></li>
+                                    <li><a href="{{url('/account/cart')}}">Cart</a></li>
+                                    <li><a href="{{url('/member-login')}}">Login</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown"><a href="#">Blog<i class="fa fa-angle-down"></i></a>
@@ -117,7 +132,10 @@
                 </div>
                 <div class="col-sm-3">
                     <div class="search_box pull-right">
-                        <input type="text" placeholder="Search" />
+                        <form action="{{ url('/search/product') }}" method="GET">
+                            <input type="text" placeholder="Search" name="search" />
+                            <button type="submit"><i class="fa fa-search" aria-hidden="true"></i></button>
+                        </form>
                     </div>
                 </div>
             </div>

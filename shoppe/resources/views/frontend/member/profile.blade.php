@@ -11,12 +11,12 @@
 
 						<div class="panel panel-default">
 							<div class="panel-heading">
-								<h4 class="panel-title"><a href="{{url('member/account/update')}}">account +</a></h4>
+								<h4 class="panel-title"><a href="{{url('/member-profile')}}">account +</a></h4>
 							</div>
 						</div>
 						<div class="panel panel-default">
 							<div class="panel-heading">
-								<h4 class="panel-title"><a href="{{url('member/account/my-product')}}">My product +</a></h4>
+								<h4 class="panel-title"><a href="{{url('/account/my-product')}}">My product +</a></h4>
 							</div>
 						</div>
 
@@ -44,7 +44,7 @@
 							</ul>
 						</div>
 						@endif
-						<form action="{{route('member.update')}}" enctype="multipart/form-data" method="post">
+						<form action="{{url('/member-profile')}}" enctype="multipart/form-data" method="post">
 							@csrf
 							<input name="name" type="text" placeholder="Name" value="{{ Auth::user()->name  }}" />
 							<input name="email" type="email" placeholder="Email Address" value="{{ Auth::user()->email  }}" />

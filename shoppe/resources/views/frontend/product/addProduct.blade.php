@@ -9,12 +9,12 @@
                     <div class="panel-group category-products" id="accordian"><!--category-products-->
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h4 class="panel-title"><a href="{{ url('member/account/update') }}">Account +</a></h4>
+                                <h4 class="panel-title"><a href="{{ url('/member-profile') }}">Account +</a></h4>
                             </div>
                         </div>
                         <div class="panel panel-default">
                             <div class="panel-heading">
-                                <h4 class="panel-title"><a href="{{ url('member/account/my-product') }}">My product +</a></h4>
+                                <h4 class="panel-title"><a href="{{ url('/account/my-product') }}">My product +</a></h4>
                             </div>
                         </div>
                     </div><!--/category-products-->
@@ -22,7 +22,7 @@
             </div>
             <div class="col-sm-9">
                 <div class="blog-post-area">
-                    <h2 class="title text-center">Update user</h2>
+                    <h2 class="title text-center">Create Product</h2>
                     <div class="signup-form"><!--sign up form-->
                         <h2>CREATE PRODUCT</h2>
                         @if (session('success'))
@@ -39,21 +39,40 @@
                             </ul>
                         </div>
                         @endif
-                        <form action="{{ route('member.postProduct') }}" enctype="multipart/form-data" method="post">
+                        <form action="{{ url('/account/add-product') }}" enctype="multipart/form-data" method="post">
                             @csrf
+
                             <input name="name" type="text" placeholder="Name" value="" />
                             <input name="price" type="number" placeholder="Price" value="" />
+
                             <select name="id_category" class="form-control form-control-line">
                                 <option value="">Please choose category</option>
-                                <option value="1">Category1</option>
-                                <option value="2">Category2</option>
+
+                                <?php
+                                if ($categories->count() > 0) {
+                                    foreach ($categories as $category) {
+                                ?>
+                                        <option value="{{ $category->id }}">{{ $category->category_name }}</option>
+                                <?php
+                                    } //end foreach
+                                } // end if
+                                ?>
                             </select>
+                       
                             <select name="id_brand" class="form-control form-control-line">
                                 <option value="">Please choose brand</option>
-                                <option value="1">Brand1</option>
-                                <option value="2">Brand2</option>
+                                <?php
+                                    if ($brands->count() > 0) {
+                                        foreach ($brands as $brand) {
+                                ?>
+                                        <option value="{{ $brand->id }}" {{ $brand->id == Auth::user()->id_brand ? 'selected' : '' }}>{{ $brand->brand_name }}</option>
+
+                                <?php
+                                    } //end foreach
+                                } // end if
+                                ?>
                             </select>
-                            <select name="status" class="form-control form-control-line">
+                            <select name="status" id="status" class="form-control form-control-line">
                                 <option value="1">Sale</option>
                                 <option value="0">New</option>
                             </select>
@@ -65,7 +84,7 @@
                                 </div>
                             </div>
                             <input name="company" type="text" placeholder="Company profile" value="" />
-                            <input type="file" name="avatar" />
+                            <input type="file" name="avatar[]" multiple />
 
                             <textarea name="detail" id="" placeholder="Detail"></textarea>
 
@@ -85,4 +104,25 @@
         width: 200px;
     }
 </style>
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        var statusSelect = document.getElementById("status");
+        var saleInput = document.querySelector(".upLine");
+
+        statusSelect.addEventListener("change", function() {
+            if (statusSelect.value == "1") {
+                saleInput.style.display = "flex";
+            } else {
+                saleInput.style.display = "none";
+            }
+        });
+
+        // Khi trang được tải, kiểm tra giá trị ban đầu của lựa chọn
+        if (statusSelect.value == "1") {
+            saleInput.style.display = "flex";
+        } else {
+            saleInput.style.display = "none";
+        }
+    });
+</script>
 @endsection

@@ -16,7 +16,7 @@
         </ul>
     </div>
     @endif
-    <form action="{{ route('member.postRegister') }}" enctype="multipart/form-data" method="post">
+    <form action="{{ url('/member-register') }}" enctype="multipart/form-data" method="post">
         @csrf
         <label class="col-md-12">Avatar</label>
         <input type="file" name="avatar" />

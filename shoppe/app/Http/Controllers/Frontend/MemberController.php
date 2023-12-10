@@ -7,7 +7,7 @@ use Illuminate\Http\Request;
 use App\Http\Requests\MemberLoginRequest;
 use \Illuminate\Support\Facades\Auth;
 
-class LoginController extends Controller
+class MemberController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -28,10 +28,14 @@ class LoginController extends Controller
         }
 
         if(Auth::attempt($login,$remember)){
-            return redirect('member/home');
+            return redirect('/home');
         }else{
             return redirect()->back()->withErrors('Email or password is not correct');
         }
+    }
+    public function logout(){
+        Auth::logout();
+        return redirect('/member-login');
     }
     public function index()
     {

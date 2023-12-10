@@ -29,17 +29,19 @@
                     </tr>
                 </thead>
                 <tbody>
+                    @php $startFrom = ($brands->currentPage() - 1) * $brands->perPage() + 1 @endphp
                     <?php
                     if ($brands->count() > 0) {
+                        
                         foreach ($brands as $brand) {
                     ?>
                             <tr>
-                                <th scope="row"></th>
+                                <th scope="row">{{ $startFrom++ }}</th>
                                 <th><?php echo $brand->brand_name ?></th>
 
                                 </th>
                                 <th>
-                                    <a href="" class="btn btn-primary text-white mr-2">Edit</a>
+                                    <a href="{{ route('brand.getEditBrand',['id' => $brand->id]) }}" class="btn btn-primary text-white mr-2">Edit</a>
                                     <a href="{{ route('brand.deleteBrand', ['id' => $brand->id]) }}" class="btn btn-danger text-white mr-2">Delete</a>
                                 </th>
                             </tr>
@@ -49,8 +51,8 @@
                     ?>
                 </tbody>
             </table>
-            {{ $brands->links() }}
             <a href="{{route('brand.addBrand')}}" class="btn btn-success text-white ml-2 mb-2">Create Brand</a>
+            {{ $brands->links() }}
 
         </div>
     </div>

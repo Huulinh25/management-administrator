@@ -248,36 +248,36 @@
                     <h2>3 RESPONSES</h2>
                     <ul class="media-list">
                     @foreach ($comments as $comment)
-                        @if ($comment->level == 0)
+                        @if ($comment['level'] == 0)
                         <li class="media">
                             <a class="pull-left" href="#">
-                                <img class="media-object" src="{{ asset('admin/user/upload/' . $comment->avatar) }}" alt="" height="86px" width="121px">
+                                <img class="media-object" src="{{ asset('admin/user/upload/' . $comment['avatar']) }}" alt="" height="86px" width="121px">
                             </a>
                             <div class="media-body">
                                 <ul class="sinlge-post-meta">
-                                    <li><i class="fa fa-user"></i>{{ $comment->name_user }}</li>
-                                    <li><i class="fa fa-clock-o"></i>id: {{ $comment->id }} </li>
-                                    <li><i class="fa fa-calendar"></i> level: {{ $comment->level }} </li>
-                                </ul>
-                                <p>{{ $comment->cmt }}</p>
-                                <a class="btn btn-primary reply-button" data-comment-id="{{ $comment->id }}"><i class="fa fa-reply"></i>Replay</a>
+                                    <li><i class="fa fa-user"></i>{{ $comment['name_user'] }}</li>
+                                    <li><i class="fa fa-clock-o"></i>id: {{ $comment['id'] }}</li>
+                                    <li><i class="fa fa-calendar"></i> level: {{ $comment['level'] }}</li>
+                                </ul>         
+                                <p>{{ $comment['cmt'] }}</p>
+                                <a class="btn btn-primary reply-button" data-comment-id="{{ $comment['id'] }}"><i class="fa fa-reply"></i>Replay</a>
                             </div>
                         </li>
                         @endif
                         @foreach ($comments as $childComment)
-                                @if ($childComment->level == $comment->id)
+                                @if ($childComment['level'] == $comment['id'])
                                     <li class="media second-media">
                                         <a class="pull-left" href="#">
-                                            <img class="media-object" src="{{ asset('admin/user/upload/' . $childComment->avatar) }}" alt="" height="86px" width="121px">
+                                            <img class="media-object" src="{{ asset('admin/user/upload/' . $childComment['avatar']) }}" alt="" height="86px" width="121px">
                                         </a>
                                         <div class="media-body">
                                             <ul class="sinlge-post-meta">
-                                                <li><i class="fa fa-user"></i>{{ $childComment->name_user }}</li>
-                                                <li><i class="fa fa-clock-o"></i>id: {{ $childComment->id }}</li>
-                                                <li><i class="fa fa-calendar"></i> level: {{ $childComment->level }}</li>
+                                                <li><i class="fa fa-user"></i>{{ $childComment['name_user'] }}</li>
+                                                <li><i class="fa fa-clock-o"></i>id: {{ $childComment['id'] }}</li>
+                                                <li><i class="fa fa-calendar"></i> level: {{ $childComment['level'] }}</li>
                                             </ul>
-                                            <p>{{ $childComment->cmt }}</p>
-                                            <a class="btn btn-primary reply-button" data-comment-id="{{ $childComment->id }}"><i class="fa fa-reply"></i>Replay</a>
+                                            <p>{{ $childComment['cmt'] }}</p>
+                                            <a class="btn btn-primary reply-button" data-comment-id="{{ $childComment['id'] }}"><i class="fa fa-reply"></i>Replay</a>
                                         </div>
                                     </li>
                                 @endif
@@ -324,7 +324,6 @@
     $(document).ready(function() {
         $.ajaxSetup({
             headers: {
-
                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
             }
         });

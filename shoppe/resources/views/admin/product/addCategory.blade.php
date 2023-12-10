@@ -4,18 +4,18 @@
     <div class="col-12">
         <div class="card card-body">
             <div class="mb-2">
-                <a href="{{ url()->previous() }}" class="btn btn-primary">< Quay lại</a> <!-- Thêm nút "Quay lại" -->
+                <a href="{{ url('admin/category')}}" class="btn btn-primary">< Quay lại</a> <!-- Thêm nút "Quay lại" -->
             </div>
             <h4 class="card-title">Create Category</h4>
-            @if ($errors->any())
-            <div class="alert alert-danger">
-                <ul>
-                    @foreach ($errors->all() as $error)
-                    <li>{{ $error }}</li>
-                    @endforeach
-                </ul>
-            </div>
-            @endif
+                @if ($errors->any())
+                <div class="alert alert-danger">
+                    <ul>
+                        @foreach ($errors->all() as $error)
+                        <li>{{ $error }}</li>
+                        @endforeach
+                    </ul>
+                </div>
+                @endif
             <form class="form-horizontal m-t-30" action="{{route('category.postCategory')}}" method="post">
                 @csrf
                 <div class="form-group">

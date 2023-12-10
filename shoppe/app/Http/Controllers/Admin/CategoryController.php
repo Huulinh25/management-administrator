@@ -8,7 +8,6 @@ use App\Models\Categorys;
 
 use App\Http\Requests\CategoryRequest;
 
-
 class CategoryController extends Controller
 {
     /**
@@ -43,7 +42,7 @@ class CategoryController extends Controller
         // dd($category);
         return view('admin.product.editCategory', compact('category'));
     }
-    public function postCategory(Request $request)
+    public function postCategory(CategoryRequest $request)
     {
         $category = new Categorys();
         $category->category_name = $request->input('category_name');

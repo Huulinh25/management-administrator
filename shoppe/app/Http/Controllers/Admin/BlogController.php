@@ -25,13 +25,6 @@ class BlogController extends Controller
         $this->middleware('auth');
     }
 
-
-    // public function getBlog(){
-    //     $blogs = Blog::all();
-    //     // dd($blogs);
-    //     return view('blog')->with('blogs', $blogs);
-    // }
-
     public function addBlog()
     {
         return view('admin.blog.addBlog');
@@ -42,7 +35,6 @@ class BlogController extends Controller
         $blog->title = $request->input('title');
         $blog->image = $request->input('image'); // post tên image vào database
         $blog->description = $request->input('description');
-
 
         $blog->save(); // Save the country to the database
 
@@ -60,6 +52,7 @@ class BlogController extends Controller
         if (!$blog) {
             return redirect()->route('blog.blog')->withErrors('Blog not found.');
         }
+
         $data = $request->all();
         $file = $request->image;
         if (!empty($file)) {

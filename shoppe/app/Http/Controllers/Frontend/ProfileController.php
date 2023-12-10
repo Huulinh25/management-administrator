@@ -41,9 +41,9 @@ class ProfileController extends Controller
             if (!empty($file)) {
                 $file->move('member/user/upload', $file->getClientOriginalName());
             }
-            return redirect('member/account/update')->with('success', ('Update profile success.'));
+            return redirect('/member-profile')->with('success', ('Update profile success.'));
         } else {
-            return redirect('member/account/update')->withErrors('Update profile error.');
+            return redirect('/member-profile')->withErrors('Update profile error.');
         }
     }
     public function index()

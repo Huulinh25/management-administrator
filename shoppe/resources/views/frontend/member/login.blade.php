@@ -20,7 +20,7 @@
 							</ul>
 						</div>
 						@endif
-						<form action="{{route('member.postLogin')}}" method="post">
+						<form action="{{url('/member-login')}}" method="post">
 
 						@csrf
 							<input type="email" placeholder="Email Address" name="email"/>

@@ -22,13 +22,13 @@ class BrandRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'brand_name	' => 'required|unique:categorys,brand_name',
+            'brand_name' => 'required|unique:brands,brand_name',
         ];
     }
     public function messages()
     {
         return [
-            'required' =>':attribute :Không được để trống trường ',
+            'required' =>':attribute :Không được để trống trường',
             'unique' => ':attribute đã tồn tại trong cơ sở dữ liệu',
         ];
     }

@@ -12,4 +12,9 @@ class Blogs extends Model
     protected $primaryKey = 'id';
     public $timestamps = false;
     protected $fillable = ['title', 'description', 'image'];
+
+    public function comments()
+    {
+        return $this->hasMany(Comments::class, 'id_blog');
+    }
 }

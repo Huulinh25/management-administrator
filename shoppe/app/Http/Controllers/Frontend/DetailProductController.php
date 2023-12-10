@@ -3,18 +3,28 @@
 namespace App\Http\Controllers\Frontend;
 
 use App\Http\Controllers\Controller;
+use App\Models\Brands;
+use App\Models\Products;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 
-class LogoutController extends Controller
+class DetailProductController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index($id)
     {
-        Auth::logout();
-        return view('frontend.member.login'); 
+        $product = Products::findOrFail($id)->toArray();
+        $imagesProduct = $product['avatar'];
+        $id_Brand = $product['id_brand'];
+
+        $brand = Brands::find($id_Brand)->toArray();
+        // dd($brand);
+
+        return view('frontend.product.detailProduct')
+            ->with('imagesProduct', $imagesProduct)
+            ->with('product', $product)
+            ->with('brand', $brand);
     }
 
 

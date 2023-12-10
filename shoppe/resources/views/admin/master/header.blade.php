@@ -81,7 +81,7 @@
 					<div class="dropdown-menu dropdown-menu-right user-dd animated">
 						<a class="dropdown-item" href="profile"><i class="ti-user m-r-5 m-l-5"></i> My Profile</a>
 						<a class="dropdown-item" href="javascript:void(0)"><i class="ti-email m-r-5 m-l-5"></i> Email</a>
-						<a class="dropdown-item" href="{{url('/')}}"><i class="ti-wallet m-r-5 m-l-5"></i> Logout</a>
+						<a class="dropdown-item" href="{{url('/admin/logout')}}"><i class="ti-wallet m-r-5 m-l-5"></i> Logout</a>
 					</div>
 				</li>
 				<!-- ============================================================== -->

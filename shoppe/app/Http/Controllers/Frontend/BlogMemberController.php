@@ -14,8 +14,6 @@ class BlogMemberController extends Controller
     /**
      * Display a listing of the resource.
      */
-    
-    
     public function postCmt(Request $request){
         
         $comment = $request->input('comment');
@@ -68,7 +66,6 @@ class BlogMemberController extends Controller
 
         return response()->json(['rateValue' => $rateValue]);
     }
-
 
     public function postRateBlog(Request $request)
     {
@@ -124,7 +121,10 @@ class BlogMemberController extends Controller
         $averageRate = $averageRateResponse->original['averageRate'];
 
         // Truy vấn tất cả bình luận cho bài đăng cụ thể
-        $comments = Comments::where('id_blog', $id)->get();
+        $comments = Comments::where('id_blog', $id)->get()->toArray();
+        // dd($comments);
+
+
         return view('frontend.blog.detailBlog')
             ->with('blog', $blog)
             ->with('previousBlog', $previousBlog)
@@ -138,7 +138,8 @@ class BlogMemberController extends Controller
     public function index()
     {
         $blogs = Blogs::paginate(3); // Lấy tất cả dữ liệu từ bảng "blogs"
-        // dd($players);
+        // dd($blogs);
+        // $getBlogDetail = Blogs
         return view('frontend.blog.blog')->with('blogs', $blogs);
     }
     /**

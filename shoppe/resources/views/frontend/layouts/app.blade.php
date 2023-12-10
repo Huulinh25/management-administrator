@@ -14,6 +14,8 @@
     <link href="{{asset('frontend/css/main.css') }}" rel="stylesheet">
     <link href="{{asset('frontend/css/responsive.css') }}" rel="stylesheet">
     <link href="{{asset('frontend/css/detailBlog.css') }}" rel="stylesheet">
+    <link href="{{asset('frontend/css/index.css') }}" rel="stylesheet">
+
 
 
     <!-- <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous"> -->
@@ -43,12 +45,15 @@
     @yield('content')
     @include('frontend.layouts.footer')
 
-   
     <script type="text/javascript" src="{{asset('frontend/js/bootstrap.min.js') }}"></script>
     <script type="text/javascript" src="{{asset('frontend/js/jquery.scrollUp.min.js') }}"></script>
     <script type="text/javascript" src="{{asset('frontend/js/price-range.js') }}"></script>
     <script type="text/javascript" src="{{asset('frontend/js/jquery.prettyPhoto.js') }}"></script>
     <script type="text/javascript" src="{{asset('frontend/js/main.js') }}"></script>
-    
+    <script>
+        $('a[rel^="prettyPhoto"]').prettyPhoto({
+				
+		});
+    </script>
 </body>
 </html>

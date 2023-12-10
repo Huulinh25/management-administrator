@@ -16,8 +16,10 @@
 
                     {{ __('Welcome!') }}
                     <a href="admin/dashboard">Click here to Homepage</a>
+                    <br/>
                 </div>
             </div>
+            <a href="{{ route('getLogin') }}">You are not an admin? Please click here to login member</a>
         </div>
     </div>
 </div>
