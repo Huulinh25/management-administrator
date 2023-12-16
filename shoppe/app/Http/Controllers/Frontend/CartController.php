@@ -75,6 +75,8 @@ class CartController extends Controller
     public function addToCart(Request $request)
     {
         $oldCart = session()->get('cart') ?? [];
+        $qty = $request->input('qty');
+        // dd
         $productId = $request->input('productId');
         $product = Products::find($productId);
         
@@ -86,15 +88,27 @@ class CartController extends Controller
         
         foreach ($oldCart as $key => $cartItem) {
             if ($cartItem['id'] == $productId) {
-                $oldCart[$key]['quantity'] += 1;
-                $productExists = true;
-                break;
+                if(!$qty){
+                    $oldCart[$key]['quantity'] += 1;
+                    $productExists = true;
+                    break;
+                }
+                else{
+                    $oldCart[$key]['quantity'] += $qty;
+                    $productExists = true;
+                    break;
+                }
             }
         }
 
         if (!$productExists) {
             $productData = $product->toArray();
-            $productData['quantity'] = 1;
+            if(!$qty){
+                $productData['quantity'] = 1;
+            }
+            else{
+                $productData['quantity'] = $qty;
+            }
             $oldCart[] = $productData;
         }
         

@@ -196,7 +196,7 @@
 							<span>
 								<span>US ${{$product['price']}}</span>
 								<label>Quantity:</label>
-								<input type="text" value="1" />
+								<input type="text" value="1" id="qty"/>
 								<a class="btn btn-fefault cart add-to-cart" data-product-id="{{ $product['id'] }}">
 									<i class="fa fa-shopping-cart"></i>
 									Add to cart
@@ -512,11 +512,13 @@
 
 			$(".add-to-cart").click(function(event) {
 				var productId = $(this).data('product-id');
-				// alert(productId);
+				var qty = $("#qty").val();
+				// alert(qty);
 				$.ajax({
 					type: "POST",
 					url: "{{ url('/account/add-to-cart') }}",
 					data: {
+						qty: qty,
 						productId: productId
 					},
 					success: function(data) {
